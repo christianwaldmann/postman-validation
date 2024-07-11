@@ -7,7 +7,7 @@ cd $HERE
 # Remove secrets from collections
 for FILENAME in $(find ../collections -iname "*.postman_*.json"); do
     echo "Removing secrets from \"$FILENAME\""
-    perl -0777 -p -i -e 's/("key": "(?:password|username)",\n\s*"value": ")(?:\s*[^{]{2,2}.+[^}]{2,2}\s*)(",\n\s*"type": ".*")/\1\2/g' $FILENAME
+    perl -0777 -p -i -e 's/("key": "(?:password|username|Authorization|value)",\n\s*"value": ")(?:\s*[^{]{2,2}.+[^}]{2,2}\s*)(",\n\s*"type": ".*")/\1\2/g' $FILENAME
 done
 
 # Remove secrets from environments

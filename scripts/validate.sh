@@ -8,7 +8,7 @@ IS_SECRETS_EXPOSED=false
 # Validate collections
 for FILENAME in $(find ../collections -iname "*.postman_*.json"); do
 
-    SECRETS=$(jq '[.. | objects | select((.key=="password" or .key=="username") and .value!="") | select(.value | startswith("{{") and endswith("}}") | not) | .value]' $FILENAME)
+    SECRETS=$(jq '[.. | objects | select((.key=="password" or .key=="username" or .key=="Authorization" or .key=="value") and .value!="") | select(.value | startswith("{{") and endswith("}}") | not) | .value]' $FILENAME)
 
     if [ "$SECRETS" != "[]" ]; then
         echo "\"$FILENAME\": NOT OK, found the following secrets:"
